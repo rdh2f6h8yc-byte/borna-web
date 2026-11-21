@@ -9,4 +9,3 @@ Página pública de Borna (la app está en otro repositorio, instaladores-app). 
 **Publicar:** en Vercel, *Add New → Project*, importa este repositorio y pulsa *Deploy* (sin configurar nada).
 Luego, en *Settings → Domains*, añade el dominio de Borna.
 
-Antes de publicar, completa el NIF en `privacidad/`, `condiciones/` y `aviso-legal/` (busca `<!--NIF-->`).

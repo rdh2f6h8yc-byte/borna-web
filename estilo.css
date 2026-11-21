@@ -24,14 +24,16 @@ img,svg{display:block;max-width:100%}
 .cab{position:sticky;top:0;z-index:10;background:rgba(244,247,251,.92);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid transparent}
 .cab.con-borde{border-bottom-color:var(--linea)}
 .cab .envoltura{display:flex;align-items:center;gap:18px;height:64px}
-.marca{display:flex;align-items:center;gap:10px;color:var(--tinta);text-decoration:none;font-weight:800;font-size:21px;font-variation-settings:"wdth" 118;letter-spacing:-.01em}
+.marca{flex-shrink:0;display:flex;align-items:center;gap:10px;color:var(--tinta);text-decoration:none;font-weight:800;font-size:21px;font-variation-settings:"wdth" 118;letter-spacing:-.01em}
 .marca img{width:32px;height:32px;border-radius:8px}
 .cab nav{margin-left:auto;display:flex;align-items:center;gap:22px}
-.cab nav a{color:var(--tinta);text-decoration:none;font-size:15px;font-weight:600}
+.cab nav a{white-space:nowrap;color:var(--tinta);text-decoration:none;font-size:15px;font-weight:600}
 .cab nav a:hover{color:var(--neutro)}
-@media (max-width:760px){.cab nav a.sec{display:none}}
+@media (max-width:760px){.cab nav a.sec.solo-ancho{display:none}.cab nav{gap:16px}}
+@media (max-width:419px){.cab nav a.sec{display:none}}
+@media (max-width:359px){.cab .envoltura{padding:0 14px;gap:10px}.cab nav{gap:12px}.cab .boton{padding:9px 12px;font-size:14px}}
 
-.boton{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:12px;background:var(--tinta);color:#fff !important;text-decoration:none;font-weight:700;font-size:16px;border:2px solid var(--tinta);transition:background .15s,transform .15s}
+.boton{white-space:nowrap;display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:13px 22px;border-radius:12px;background:var(--tinta);color:#fff !important;text-decoration:none;font-weight:700;font-size:16px;border:2px solid var(--tinta);transition:background .15s,transform .15s}
 .boton:hover{background:#163563;border-color:#163563}
 .boton:active{transform:translateY(1px)}
 .boton.claro{background:transparent;color:var(--tinta) !important;border-color:var(--linea)}

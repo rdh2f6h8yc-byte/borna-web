@@ -25,6 +25,7 @@
 .acciones{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
 .portada .nota{margin:16px 0 0;font-size:15px;color:var(--gris)}
 @media (max-width:900px){.portada{padding:28px 0 56px}.portada .envoltura{grid-template-columns:1fr;gap:36px}}
+@media (max-width:560px){.portada .plano{width:calc(100% + 16px);max-width:none;margin:0 -12px 0 -4px}}
 
 /* Plano animado */
 .plano{width:100%;height:auto;overflow:visible}
@@ -123,7 +124,7 @@ details p{margin:0 0 22px;color:var(--gris);max-width:62ch}
   <div class="envoltura">
     <a class="marca" href="/"><img src="/icon-192.png" alt="" width="32" height="32">Borna</a>
     <nav aria-label="Principal">
-      <a class="sec" href="#como">Cómo funciona</a>
+      <a class="sec solo-ancho" href="#como">Cómo funciona</a>
       <a class="sec" href="#precio">Precio</a>
       <a href="https://instaladoresapp.vercel.app/">Entrar</a>
       <a class="boton" href="https://instaladoresapp.vercel.app/">Probar gratis</a>

@@ -1,0 +1,315 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Borna: presupuestos, planos y partes de trabajo para instaladores</title>
+<meta name="description" content="App para empresas instaladoras: fichas de clientes, planos eléctricos, presupuestos que el cliente acepta firmando desde el móvil, partes de trabajo y material. 7 días gratis.">
+<meta name="theme-color" content="#F4F7FB">
+<meta property="og:title" content="Borna: la app de trabajo para empresas instaladoras">
+<meta property="og:description" content="Clientes, planos, presupuestos con firma del cliente y partes de trabajo, desde el móvil. 19 € al mes por empresa, con todos tus técnicos.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="/icon-512.png">
+<link rel="icon" href="/icon-192.png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,100..900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/estilo.css">
+<style>
+/* Portada */
+.portada{padding:56px 0 72px}
+.portada .envoltura{display:grid;grid-template-columns:1.02fr .98fr;gap:48px;align-items:center}
+.portada h1{font-size:clamp(38px,5.6vw,68px);line-height:1.02;margin:0 0 22px;font-weight:850;font-variation-settings:"wdth" 116;letter-spacing:-.03em;max-width:13ch}
+.portada .entrada{font-size:clamp(18px,1.6vw,20px);color:var(--gris);max-width:44ch;margin:0 0 30px}
+.acciones{display:flex;flex-wrap:wrap;gap:12px;align-items:center}
+.portada .nota{margin:16px 0 0;font-size:15px;color:var(--gris)}
+@media (max-width:900px){.portada{padding:28px 0 56px}.portada .envoltura{grid-template-columns:1fr;gap:36px}}
+
+/* Plano animado */
+.plano{width:100%;height:auto;overflow:visible}
+.plano .muro{fill:none;stroke:var(--tinta);stroke-width:9;stroke-linejoin:round}
+.plano .simbolo{fill:#fff;stroke:var(--tinta);stroke-width:2.5}
+.plano .cable{fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:tender .7s cubic-bezier(.6,0,.3,1) forwards}
+.plano .c1{stroke:var(--fase);--l:220;animation-delay:.25s}
+.plano .c2{stroke:var(--neutro);--l:430;animation-delay:.55s}
+.plano .c3{stroke:var(--tierra);--l:60;animation-delay:.85s}
+.plano .c4{stroke:var(--fase);--l:250;animation-delay:1.05s}
+.plano .hoja{opacity:0;transform:translateY(18px);animation:subir .55s cubic-bezier(.2,.8,.2,1) 1.55s forwards}
+.plano .sello{opacity:0;transform-box:fill-box;transform-origin:center;transform:rotate(-8deg) scale(1.6);animation:sellar .35s cubic-bezier(.3,1.6,.5,1) 2.25s forwards}
+.plano .firma{fill:none;stroke:var(--tinta);stroke-width:2;stroke-linecap:round;stroke-dasharray:160;stroke-dashoffset:160;animation:tender .6s ease-out 2s forwards}
+@keyframes tender{to{stroke-dashoffset:0}}
+@keyframes subir{to{opacity:1;transform:none}}
+@keyframes sellar{to{opacity:1;transform:rotate(-8deg) scale(1)}}
+@media (prefers-reduced-motion:reduce){
+  .plano .cable,.plano .firma{animation:none;stroke-dashoffset:0}
+  .plano .hoja{animation:none;opacity:1;transform:none}
+  .plano .sello{animation:none;opacity:1;transform:rotate(-8deg)}
+}
+
+/* Así va un trabajo */
+.trabajo{padding:88px 0;background:#fff;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
+.trabajo .envoltura{display:grid;grid-template-columns:.8fr 1.2fr;gap:56px}
+.trabajo .lado{position:sticky;top:104px;align-self:start}
+h2{font-size:clamp(30px,3.6vw,44px);line-height:1.08;margin:0 0 16px;font-weight:800;font-variation-settings:"wdth" 112;letter-spacing:-.02em}
+.lado p{color:var(--gris);max-width:36ch;margin:0}
+.pasos{list-style:none;margin:0;padding:0;position:relative;counter-reset:paso}
+.pasos li:not(:last-child)::after{content:"";position:absolute;left:21px;top:46px;bottom:0;width:4px;background:var(--neutro)}
+.pasos li:nth-child(1)::after,.pasos li:nth-child(4)::after{background:var(--fase)}
+.pasos li:nth-child(3)::after{background:var(--tierra)}
+.pasos li{position:relative;padding:0 0 40px 72px;counter-increment:paso}
+.pasos li:last-child{padding-bottom:0}
+.pasos li::before{content:counter(paso);position:absolute;left:0;top:0;width:46px;height:46px;border-radius:50%;background:#fff;border:3px solid var(--tinta);display:grid;place-items:center;font-weight:800;font-size:18px;font-variation-settings:"wdth" 110;box-shadow:0 0 0 6px #fff}
+.pasos h3{margin:6px 0 6px;font-size:22px;font-weight:750;font-variation-settings:"wdth" 108}
+.pasos p{margin:0;color:var(--gris);max-width:52ch}
+@media (max-width:900px){.trabajo{padding:64px 0}.trabajo .envoltura{grid-template-columns:1fr;gap:36px}.trabajo .lado{position:static}}
+
+/* Equipo */
+.equipo{background:var(--tinta);color:#fff;padding:88px 0}
+.equipo h2{max-width:18ch}
+.equipo .intro{color:#B9C6D8;max-width:52ch;margin:0 0 44px}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid #2A3F5E}
+.roles section{padding:28px 32px 4px 0}
+.roles section+section{padding-left:32px;border-left:1px solid #2A3F5E}
+.roles h3{margin:0 0 12px;font-size:24px;font-weight:750;font-variation-settings:"wdth" 110}
+.roles ul{margin:0;padding:0;list-style:none}
+.roles li{padding:9px 0 9px 26px;position:relative;color:#DCE4EF}
+.roles li::before{content:"";position:absolute;left:0;top:18px;width:12px;height:4px;border-radius:2px;background:var(--tierra)}
+@media (max-width:760px){.equipo{padding:64px 0}.roles{grid-template-columns:1fr}.roles section+section{padding-left:0;border-left:0;border-top:1px solid #2A3F5E}}
+
+/* Además */
+.ademas{padding:88px 0}
+.extras{display:grid;grid-template-columns:repeat(3,1fr);gap:40px 48px;margin-top:40px}
+.extras h3{margin:0 0 6px;font-size:19px;font-weight:750;font-variation-settings:"wdth" 106}
+.extras p{margin:0;color:var(--gris);font-size:16px}
+@media (max-width:900px){.ademas{padding:64px 0}.extras{grid-template-columns:1fr 1fr;gap:28px 32px}}
+@media (max-width:560px){.extras{grid-template-columns:1fr}}
+
+/* Precio */
+.precio{padding:0 0 88px}
+.tarifa{background:#fff;border:2px solid var(--tinta);border-radius:22px;display:grid;grid-template-columns:1fr 1fr;overflow:hidden}
+.tarifa .cifra{padding:44px 44px 40px;border-right:2px solid var(--tinta)}
+.tarifa .cifra h2{margin-bottom:28px}
+.importe{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.importe b{font-size:clamp(72px,9vw,112px);line-height:.9;font-weight:850;font-variation-settings:"wdth" 120;letter-spacing:-.04em}
+.importe span{font-size:19px;color:var(--gris)}
+.tarifa .anual{margin:18px 0 28px;font-size:17px}
+.tarifa ul{list-style:none;margin:0;padding:44px;display:grid;gap:14px;align-content:center;background:var(--papel)}
+.tarifa li{padding-left:34px;position:relative}
+.tarifa li::before{content:"";position:absolute;left:0;top:4px;width:20px;height:20px;border-radius:50%;background:var(--ok) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3E%3Cpath d='M5.5 10.5l3 3 6-7' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center/20px no-repeat}
+@media (max-width:820px){.precio{padding-bottom:64px}.tarifa{grid-template-columns:1fr}.tarifa .cifra{border-right:0;border-bottom:2px solid var(--tinta);padding:32px 24px}.tarifa ul{padding:28px 24px}}
+
+/* Preguntas */
+.preguntas{padding:0 0 96px}
+.preguntas .envoltura{max-width:820px}
+details{border-bottom:1px solid var(--linea)}
+details:first-of-type{border-top:1px solid var(--linea)}
+summary{list-style:none;cursor:pointer;padding:20px 40px 20px 0;font-weight:700;font-size:19px;position:relative}
+summary::-webkit-details-marker{display:none}
+summary::after{content:"";position:absolute;right:6px;top:50%;width:12px;height:12px;border-right:3px solid var(--tinta);border-bottom:3px solid var(--tinta);transform:translateY(-70%) rotate(45deg);transition:transform .2s}
+details[open] summary::after{transform:translateY(-30%) rotate(225deg)}
+details p{margin:0 0 22px;color:var(--gris);max-width:62ch}
+
+/* Origen */
+.origen{padding:0 0 96px}
+.origen .envoltura{max-width:820px}
+.origen blockquote{margin:0;font-size:clamp(22px,2.6vw,30px);line-height:1.3;font-weight:600;font-variation-settings:"wdth" 104;letter-spacing:-.01em}
+.origen p{color:var(--gris);margin:18px 0 0}
+</style>
+</head>
+<body>
+
+<header class="cab" id="cab">
+  <div class="envoltura">
+    <a class="marca" href="/"><img src="/icon-192.png" alt="" width="32" height="32">Borna</a>
+    <nav aria-label="Principal">
+      <a class="sec" href="#como">Cómo funciona</a>
+      <a class="sec" href="#precio">Precio</a>
+      <a href="https://instaladoresapp.vercel.app/">Entrar</a>
+      <a class="boton" href="https://instaladoresapp.vercel.app/">Probar gratis</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="portada">
+  <div class="envoltura">
+    <div>
+      <h1>Del plano al presupuesto firmado, desde la obra.</h1>
+      <p class="entrada">Borna es la app de trabajo para empresas instaladoras. Das de alta al cliente, dibujas el plano, le mandas el presupuesto y lo acepta firmando en su móvil. Cada técnico de tu equipo lleva lo suyo.</p>
+      <div class="acciones">
+        <a class="boton" href="https://instaladoresapp.vercel.app/">Probar 7 días gratis</a>
+        <a class="boton claro" href="#como">Ver cómo funciona</a>
+      </div>
+      <p class="nota">Sin tarjeta. Luego, 19 € al mes + IVA por empresa, con todos tus técnicos.</p>
+    </div>
+
+    <svg class="plano" viewBox="0 0 560 470" role="img" aria-label="Plano eléctrico de una vivienda conectado a un presupuesto aceptado y firmado por el cliente">
+      <!-- muros -->
+      <path class="muro" d="M30 30 H430 V340 H30 Z M240 30 V190 M240 260 V340 M30 230 H120"/>
+      <!-- cuadro -->
+      <rect x="44" y="262" width="30" height="52" rx="3" fill="#0B1F3A"/>
+      <!-- cables -->
+      <path class="cable c1" d="M74 272 H140 V128"/>
+      <path class="cable c2" d="M74 284 H190 V170 H340 V128"/>
+      <path class="cable c3" d="M59 262 V208"/>
+      <path class="cable c4" d="M74 306 H225 V213"/>
+      <!-- puntos de luz -->
+      <g class="simbolo"><circle cx="140" cy="112" r="16"/><path d="M129 101 L151 123 M151 101 L129 123" fill="none"/></g>
+      <g class="simbolo"><circle cx="340" cy="112" r="16"/><path d="M329 101 L351 123 M351 101 L329 123" fill="none"/></g>
+      <!-- enchufe -->
+      <g class="simbolo"><path d="M43 206 A16 16 0 0 1 75 206 Z"/><path d="M59 190 V180 M51 182 V174 M67 182 V174" fill="none"/></g>
+      <!-- interruptor -->
+      <g class="simbolo"><circle cx="225" cy="205" r="8"/><path d="M219 199 L207 181 L201 185" fill="none"/></g>
+
+      <!-- presupuesto -->
+      <g class="hoja">
+        <rect x="262" y="196" width="282" height="262" rx="16" fill="#0B1F3A" opacity=".12" transform="translate(6 8)"/>
+        <rect x="262" y="196" width="282" height="262" rx="16" fill="#fff" stroke="#D3DCE7"/>
+        <text x="284" y="230" font-family="Archivo,system-ui,sans-serif" font-weight="800" font-size="17" fill="#0B1F3A">Presupuesto P-2026-014</text>
+        <text x="284" y="251" font-family="Archivo,system-ui,sans-serif" font-size="13" fill="#4A5868">Instalación eléctrica, vivienda</text>
+        <g font-family="Archivo,system-ui,sans-serif" font-size="13" fill="#22324A">
+          <text x="284" y="284">Puntos de luz</text><text x="522" y="284" text-anchor="end">6 × 38,00 €</text>
+          <text x="284" y="306">Enchufes</text><text x="522" y="306" text-anchor="end">12 × 32,00 €</text>
+          <text x="284" y="328">Cuadro y protecciones</text><text x="522" y="328" text-anchor="end">420,00 €</text>
+        </g>
+        <path d="M284 342 H522" stroke="#D3DCE7"/>
+        <text x="284" y="366" font-family="Archivo,system-ui,sans-serif" font-weight="700" font-size="14" fill="#0B1F3A">Total con IVA</text>
+        <text x="522" y="366" text-anchor="end" font-family="Archivo,system-ui,sans-serif" font-weight="800" font-size="16" fill="#0B1F3A">1.248,72 €</text>
+        <path class="firma" d="M290 425 c10 -22 18 -24 20 -8 s6 14 14 -6 s10 -18 14 2 s8 10 18 -4 c6 -8 14 -6 22 0"/>
+        <path d="M284 438 H420" stroke="#D3DCE7"/>
+        <text x="284" y="452" font-family="Archivo,system-ui,sans-serif" font-size="11" fill="#4A5868">Firmado por el cliente</text>
+        <g class="sello">
+          <rect x="430" y="398" width="100" height="38" rx="8" fill="#fff" stroke="#2E9D5B" stroke-width="3"/>
+          <text x="480" y="423" text-anchor="middle" font-family="Archivo,system-ui,sans-serif" font-weight="800" font-size="16" fill="#2E9D5B">Aceptado</text>
+        </g>
+      </g>
+    </svg>
+  </div>
+</section>
+
+<section class="trabajo" id="como">
+  <div class="envoltura">
+    <div class="lado">
+      <h2>Así va un trabajo en Borna</h2>
+      <p>Todo queda en la ficha del cliente: el plano, el presupuesto, la firma, los partes y las fotos. La próxima vez que te llame, lo tienes delante.</p>
+    </div>
+    <ol class="pasos">
+      <li><h3>Das de alta al cliente</h3><p>Nombre, teléfono, dirección y fotos de la instalación. Le llamas o le escribes por WhatsApp con un toque.</p></li>
+      <li><h3>Dibujas el plano</h3><p>Plano eléctrico desde cero o encima de la foto de un plano real, con los símbolos de siempre: puntos de luz, enchufes, interruptores, cuadro.</p></li>
+      <li><h3>Haces el presupuesto</h3><p>Con tu tarifa, el IVA calculado y la numeración automática. Puedes calcular el precio desde lo que te cuesta el material y el margen que quieras.</p></li>
+      <li><h3>El cliente lo acepta firmando</h3><p>Le mandas un enlace. Lo abre en su móvil, lo revisa y lo acepta firmando en la pantalla. Te llega un aviso al móvil cuando lo acepta.</p></li>
+      <li><h3>Apuntas el parte de trabajo</h3><p>El técnico anota horas, material y fotos en la misma obra. El parte se queda guardado en la ficha del cliente.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="equipo">
+  <div class="envoltura">
+    <h2>Tu equipo, cada uno con lo suyo</h2>
+    <p class="intro">Invitas a tus técnicos con su correo. Tú ves el trabajo de todos; ellos, solo el suyo. Y nadie de otra empresa ve nada de la tuya.</p>
+    <div class="roles">
+      <section>
+        <h3>Tú, como administrador</h3>
+        <ul>
+          <li>Ves los clientes, presupuestos y partes de todo el equipo</li>
+          <li>Pones la tarifa de la empresa</li>
+          <li>Recibes los contactos de tu web</li>
+          <li>Ves lo facturado mes a mes y tus mejores clientes</li>
+        </ul>
+      </section>
+      <section>
+        <h3>Tus técnicos</h3>
+        <ul>
+          <li>Sus clientes, sus presupuestos y sus partes</li>
+          <li>El material que llevan en su furgoneta</li>
+          <li>Sin acceso a contactos web ni a estadísticas</li>
+          <li>Si alguien deja la empresa, lo das de baja y su trabajo se queda</li>
+        </ul>
+      </section>
+    </div>
+  </div>
+</section>
+
+<section class="ademas">
+  <div class="envoltura">
+    <h2>Y lo que va saliendo cada día</h2>
+    <div class="extras">
+      <div><h3>Funciona sin cobertura</h3><p>En un sótano o en una nave sin señal sigues trabajando. Se guarda en cuanto vuelve la conexión.</p></div>
+      <div><h3>Material de la furgoneta</h3><p>Lo que llevas, lo que te queda y lo que tienes que reponer, con un inventario cada mes.</p></div>
+      <div><h3>Formulario para tu web</h3><p>Un enlace de contacto para tu web o tu Instagram. Los mensajes te llegan a Borna con aviso al móvil.</p></div>
+      <div><h3>Contratos de mantenimiento</h3><p>Cuota mensual y revisiones cada 1, 3, 6 o 12 meses para cada cliente.</p></div>
+      <div><h3>Avisos al móvil</h3><p>Contacto nuevo, presupuesto abierto, aceptado o rechazado. Aunque tengas la app cerrada.</p></div>
+      <div><h3>Cómo va el negocio</h3><p>Lo facturado mes a mes, lo que más vendes, dónde trabajas y tus mejores clientes.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="precio" id="precio">
+  <div class="envoltura">
+    <div class="tarifa">
+      <div class="cifra">
+        <h2>Un precio por empresa</h2>
+        <div class="importe"><b>19 €</b><span>al mes + IVA</span></div>
+        <p class="anual">O 190 € al año + IVA: dos meses gratis.</p>
+        <a class="boton" href="https://instaladoresapp.vercel.app/">Probar 7 días gratis</a>
+      </div>
+      <ul>
+        <li>Todos tus técnicos incluidos</li>
+        <li>7 días de prueba, sin tarjeta</li>
+        <li>Sin permanencia: cancelas cuando quieras</li>
+        <li>Tus datos son tuyos: puedes borrarlo todo</li>
+        <li>Pago seguro con Stripe</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<section class="preguntas" id="preguntas">
+  <div class="envoltura">
+    <h2>Preguntas</h2>
+    <details><summary>¿Tengo que instalar algo?</summary><p>No. Borna funciona en el navegador del móvil, la tablet o el ordenador. Muy pronto también estará en App Store y Google Play.</p></details>
+    <details><summary>¿Qué pasa cuando acaba la prueba?</summary><p>Sigues viendo todos tus datos, pero no puedes guardar cambios nuevos hasta que te suscribas. No se borra nada.</p></details>
+    <details><summary>¿Puedo poner mis precios?</summary><p>Sí. La tarifa que viene incluida es de ejemplo: la cambias por la tuya en «Tu tarifa» y todos los presupuestos salen con tus precios.</p></details>
+    <details><summary>¿Para qué tipo de instalador sirve?</summary><p>Para electricistas, instaladores de telecomunicaciones, antenas, redes WiFi, cámaras o alarmas. Para cualquiera que haga presupuestos, planos y partes en la obra.</p></details>
+    <details><summary>¿Cómo cancelo la suscripción?</summary><p>Desde «Cuenta y suscripción», en la web de Borna. No hay permanencia. Si eliminas la cuenta, la suscripción se cancela en ese momento y se borra todo.</p></details>
+    <details><summary>¿Dónde están guardados mis datos?</summary><p>En servidores de Supabase, con copia en tu móvil para trabajar sin cobertura. Cada empresa solo ve lo suyo. Lo explicamos en la <a href="/privacidad/">política de privacidad</a>.</p></details>
+  </div>
+</section>
+
+<section class="origen">
+  <div class="envoltura">
+    <blockquote>Borna la ha hecho un instalador para su propia empresa. La usamos cada día en las obras antes de ofrecerla a nadie más.</blockquote>
+    <p>Borna es un producto de ALMARA, empresa instaladora de Starlink, redes, WiFi y videovigilancia en Tarragona, Barcelona y Lleida.</p>
+  </div>
+</section>
+</main>
+
+<footer class="pie">
+  <div class="envoltura">
+    <div>
+      <a class="marca" href="/"><img src="/icon-192.png" alt="" width="32" height="32">Borna</a>
+      <p>La app de trabajo para empresas instaladoras.</p>
+    </div>
+    <nav aria-label="Información">
+      <a href="/soporte/">Soporte</a>
+      <a href="/privacidad/">Privacidad</a>
+      <a href="/condiciones/">Condiciones</a>
+      <a href="/aviso-legal/">Aviso legal</a>
+    </nav>
+    <nav aria-label="Contacto">
+      <a href="mailto:bornainstalaciones@gmail.com">bornainstalaciones@gmail.com</a>
+      <a href="https://instaladoresapp.vercel.app/">Entrar en Borna</a>
+    </nav>
+    <div class="cable" aria-hidden="true"></div>
+    <small>© 2026 ALMARA. Borna es una marca de ALMARA.</small>
+  </div>
+</footer>
+
+<script>
+  const cab=document.getElementById("cab");
+  const marcar=()=>cab.classList.toggle("con-borde",scrollY>8);
+  addEventListener("scroll",marcar,{passive:true});marcar();
+</script>
+</body>
+</html>

@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <title>Borna: presupuestos, planos y partes de trabajo para instaladores</title>
 <meta name="description" content="App para empresas instaladoras: fichas de clientes, planos eléctricos, presupuestos que el cliente acepta firmando desde el móvil, partes de trabajo y material. 7 días gratis.">
-<meta name="theme-color" content="#F4F7FB">
+<meta name="theme-color" content="#F4F2EC">
 <meta property="og:title" content="Borna: la app de trabajo para empresas instaladoras">
 <meta property="og:description" content="Clientes, planos, presupuestos con firma del cliente y partes de trabajo, desde el móvil. 19 € al mes por empresa, con todos tus técnicos.">
 <meta property="og:type" content="website">
@@ -27,26 +27,17 @@
 @media (max-width:900px){.portada{padding:28px 0 56px}.portada .envoltura{grid-template-columns:1fr;gap:36px}}
 @media (max-width:560px){.portada .plano{width:calc(100% + 16px);max-width:none;margin:0 -12px 0 -4px}}
 
-/* Plano animado */
-.plano{width:100%;height:auto;overflow:visible}
-.plano .muro{fill:none;stroke:var(--tinta);stroke-width:9;stroke-linejoin:round}
-.plano .simbolo{fill:#fff;stroke:var(--tinta);stroke-width:2.5}
-.plano .cable{fill:none;stroke-width:3.2;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:var(--l);stroke-dashoffset:var(--l);animation:tender .7s cubic-bezier(.6,0,.3,1) forwards}
-.plano .c1{stroke:var(--fase);--l:220;animation-delay:.25s}
-.plano .c2{stroke:var(--neutro);--l:430;animation-delay:.55s}
-.plano .c3{stroke:var(--tierra);--l:60;animation-delay:.85s}
-.plano .c4{stroke:var(--fase);--l:250;animation-delay:1.05s}
-.plano .hoja{opacity:0;transform:translateY(18px);animation:subir .55s cubic-bezier(.2,.8,.2,1) 1.55s forwards}
-.plano .sello{opacity:0;transform-box:fill-box;transform-origin:center;transform:rotate(-8deg) scale(1.6);animation:sellar .35s cubic-bezier(.3,1.6,.5,1) 2.25s forwards}
-.plano .firma{fill:none;stroke:var(--tinta);stroke-width:2;stroke-linecap:round;stroke-dasharray:160;stroke-dashoffset:160;animation:tender .6s ease-out 2s forwards}
-@keyframes tender{to{stroke-dashoffset:0}}
-@keyframes subir{to{opacity:1;transform:none}}
-@keyframes sellar{to{opacity:1;transform:rotate(-8deg) scale(1)}}
-@media (prefers-reduced-motion:reduce){
-  .plano .cable,.plano .firma{animation:none;stroke-dashoffset:0}
-  .plano .hoja{animation:none;opacity:1;transform:none}
-  .plano .sello{animation:none;opacity:1;transform:rotate(-8deg)}
-}
+/* Capturas de la app en un marco de móvil */
+.movil{margin:0;border-radius:34px;padding:8px;background:#161616;box-shadow:0 30px 60px -20px rgba(22,22,22,.45),0 0 0 1px rgba(0,0,0,.06)}
+.movil img{display:block;width:100%;height:auto;border-radius:27px;background:#F4F2EC}
+.moviles{position:relative;width:100%;max-width:470px;margin-left:auto;height:620px}
+.moviles .movil{position:absolute;width:270px}
+.moviles .delante{left:0;bottom:0;z-index:2}
+.moviles .atras{right:0;top:0;transform:rotate(4deg);opacity:.98}
+@media (max-width:900px){.moviles{margin:0 auto;max-width:360px;height:540px}.moviles .movil{width:228px}}
+@media (max-width:420px){.moviles{height:470px}.moviles .movil{width:200px}}
+@media (prefers-reduced-motion:no-preference){.moviles .movil{animation:entra .7s cubic-bezier(.2,.8,.2,1) both}.moviles .atras{animation-delay:.15s}
+  @keyframes entra{from{opacity:0;transform:translateY(24px)}}.moviles .atras{animation-name:entraG}@keyframes entraG{from{opacity:0;transform:translateY(24px) rotate(4deg)}}}
 
 /* Así va un trabajo */
 .trabajo{padding:88px 0;background:#fff;border-top:1px solid var(--linea);border-bottom:1px solid var(--linea)}
@@ -63,20 +54,33 @@ h2{font-size:clamp(30px,3.6vw,44px);line-height:1.08;margin:0 0 16px;font-weight
 .pasos li::before{content:counter(paso);position:absolute;left:0;top:0;width:46px;height:46px;border-radius:50%;background:#fff;border:3px solid var(--tinta);display:grid;place-items:center;font-weight:800;font-size:18px;font-variation-settings:"wdth" 110;box-shadow:0 0 0 6px #fff}
 .pasos h3{margin:6px 0 6px;font-size:22px;font-weight:750;font-variation-settings:"wdth" 108}
 .pasos p{margin:0;color:var(--gris);max-width:52ch}
+.lado .pantalla{width:250px;margin-top:32px}
+.lado .pantalla img{transition:opacity .25s}
+.pasos li{padding-bottom:140px}
+.en-paso{display:none}
+@media (max-width:900px){.lado .pantalla{display:none}.pasos li{padding-bottom:40px}.en-paso{display:block;width:min(240px,70%);margin:18px 0 0}}
 @media (max-width:900px){.trabajo{padding:64px 0}.trabajo .envoltura{grid-template-columns:1fr;gap:36px}.trabajo .lado{position:static}}
+
+/* 3D */
+.tresd{padding:96px 0;background:var(--papel)}
+.tresd .envoltura{display:grid;grid-template-columns:.9fr 1.1fr;gap:56px;align-items:center}
+.tresd p{color:var(--gris);max-width:44ch;margin:0 0 14px}.tresd .nota{font-size:15px}
+.tresd .dos{display:grid;grid-template-columns:1fr 1fr;gap:22px;max-width:520px;margin-left:auto}
+.tresd .dos .movil:last-child{transform:translateY(40px)}
+@media (max-width:900px){.tresd{padding:64px 0}.tresd .envoltura{grid-template-columns:1fr;gap:28px}.tresd .dos{margin:0 auto 40px;gap:14px}}
 
 /* Equipo */
 .equipo{background:var(--tinta);color:#fff;padding:88px 0}
 .equipo h2{max-width:18ch}
-.equipo .intro{color:#B9C6D8;max-width:52ch;margin:0 0 44px}
-.roles{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid #2A3F5E}
+.equipo .intro{color:#B3AFA6;max-width:52ch;margin:0 0 44px}
+.roles{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid #38362F}
 .roles section{padding:28px 32px 4px 0}
-.roles section+section{padding-left:32px;border-left:1px solid #2A3F5E}
+.roles section+section{padding-left:32px;border-left:1px solid #38362F}
 .roles h3{margin:0 0 12px;font-size:24px;font-weight:750;font-variation-settings:"wdth" 110}
 .roles ul{margin:0;padding:0;list-style:none}
-.roles li{padding:9px 0 9px 26px;position:relative;color:#DCE4EF}
-.roles li::before{content:"";position:absolute;left:0;top:18px;width:12px;height:4px;border-radius:2px;background:var(--tierra)}
-@media (max-width:760px){.equipo{padding:64px 0}.roles{grid-template-columns:1fr}.roles section+section{padding-left:0;border-left:0;border-top:1px solid #2A3F5E}}
+.roles li{padding:9px 0 9px 26px;position:relative;color:#ECE9E1}
+.roles li::before{content:"";position:absolute;left:0;top:18px;width:12px;height:4px;border-radius:2px;background:var(--amarillo)}
+@media (max-width:760px){.equipo{padding:64px 0}.roles{grid-template-columns:1fr}.roles section+section{padding-left:0;border-left:0;border-top:1px solid #38362F}}
 
 /* Además */
 .ademas{padding:88px 0}
@@ -145,47 +149,10 @@ details p{margin:0 0 22px;color:var(--gris);max-width:62ch}
       <p class="nota">Sin tarjeta. Luego, 19 € al mes + IVA por empresa, con todos tus técnicos.</p>
     </div>
 
-    <svg class="plano" viewBox="0 0 560 470" role="img" aria-label="Plano eléctrico de una vivienda conectado a un presupuesto aceptado y firmado por el cliente">
-      <!-- muros -->
-      <path class="muro" d="M30 30 H430 V340 H30 Z M240 30 V190 M240 260 V340 M30 230 H120"/>
-      <!-- cuadro -->
-      <rect x="44" y="262" width="30" height="52" rx="3" fill="#0B1F3A"/>
-      <!-- cables -->
-      <path class="cable c1" d="M74 272 H140 V128"/>
-      <path class="cable c2" d="M74 284 H190 V170 H340 V128"/>
-      <path class="cable c3" d="M59 262 V208"/>
-      <path class="cable c4" d="M74 306 H225 V213"/>
-      <!-- puntos de luz -->
-      <g class="simbolo"><circle cx="140" cy="112" r="16"/><path d="M129 101 L151 123 M151 101 L129 123" fill="none"/></g>
-      <g class="simbolo"><circle cx="340" cy="112" r="16"/><path d="M329 101 L351 123 M351 101 L329 123" fill="none"/></g>
-      <!-- enchufe -->
-      <g class="simbolo"><path d="M43 206 A16 16 0 0 1 75 206 Z"/><path d="M59 190 V180 M51 182 V174 M67 182 V174" fill="none"/></g>
-      <!-- interruptor -->
-      <g class="simbolo"><circle cx="225" cy="205" r="8"/><path d="M219 199 L207 181 L201 185" fill="none"/></g>
-
-      <!-- presupuesto -->
-      <g class="hoja">
-        <rect x="262" y="196" width="282" height="262" rx="16" fill="#0B1F3A" opacity=".12" transform="translate(6 8)"/>
-        <rect x="262" y="196" width="282" height="262" rx="16" fill="#fff" stroke="#D3DCE7"/>
-        <text x="284" y="230" font-family="Archivo,system-ui,sans-serif" font-weight="800" font-size="17" fill="#0B1F3A">Presupuesto P-2026-014</text>
-        <text x="284" y="251" font-family="Archivo,system-ui,sans-serif" font-size="13" fill="#4A5868">Instalación eléctrica, vivienda</text>
-        <g font-family="Archivo,system-ui,sans-serif" font-size="13" fill="#22324A">
-          <text x="284" y="284">Puntos de luz</text><text x="522" y="284" text-anchor="end">6 × 38,00 €</text>
-          <text x="284" y="306">Enchufes</text><text x="522" y="306" text-anchor="end">12 × 32,00 €</text>
-          <text x="284" y="328">Cuadro y protecciones</text><text x="522" y="328" text-anchor="end">420,00 €</text>
-        </g>
-        <path d="M284 342 H522" stroke="#D3DCE7"/>
-        <text x="284" y="366" font-family="Archivo,system-ui,sans-serif" font-weight="700" font-size="14" fill="#0B1F3A">Total con IVA</text>
-        <text x="522" y="366" text-anchor="end" font-family="Archivo,system-ui,sans-serif" font-weight="800" font-size="16" fill="#0B1F3A">1.248,72 €</text>
-        <path class="firma" d="M290 425 c10 -22 18 -24 20 -8 s6 14 14 -6 s10 -18 14 2 s8 10 18 -4 c6 -8 14 -6 22 0"/>
-        <path d="M284 438 H420" stroke="#D3DCE7"/>
-        <text x="284" y="452" font-family="Archivo,system-ui,sans-serif" font-size="11" fill="#4A5868">Firmado por el cliente</text>
-        <g class="sello">
-          <rect x="430" y="398" width="100" height="38" rx="8" fill="#fff" stroke="#2E9D5B" stroke-width="3"/>
-          <text x="480" y="423" text-anchor="middle" font-family="Archivo,system-ui,sans-serif" font-weight="800" font-size="16" fill="#2E9D5B">Aceptado</text>
-        </g>
-      </g>
-    </svg>
+    <div class="moviles" aria-label="Capturas de la app Borna">
+      <figure class="movil atras"><img src="/img/app/plano-3d.webp" width="390" height="844" alt="Plano de una vivienda en 3D, con enchufes e interruptores en las paredes y las luces en el techo"></figure>
+      <figure class="movil delante"><img src="/img/app/inicio.webp" width="390" height="844" alt="Pantalla de inicio de Borna: crear cliente, presupuesto, parte o plano, y avisos del día"></figure>
+    </div>
   </div>
 </section>
 
@@ -194,14 +161,29 @@ details p{margin:0 0 22px;color:var(--gris);max-width:62ch}
     <div class="lado">
       <h2>Así va un trabajo en Borna</h2>
       <p>Todo queda en la ficha del cliente: el plano, el presupuesto, la firma, los partes y las fotos. La próxima vez que te llame, lo tienes delante.</p>
+      <figure class="movil pantalla" aria-hidden="true"><img id="pantallaPaso" src="/img/app/cliente.webp" width="390" height="844" alt=""></figure>
     </div>
     <ol class="pasos">
-      <li><h3>Das de alta al cliente</h3><p>Nombre, teléfono, dirección y fotos de la instalación. Le llamas o le escribes por WhatsApp con un toque.</p></li>
-      <li><h3>Dibujas el plano</h3><p>Plano eléctrico desde cero o encima de la foto de un plano real, con los símbolos de siempre: puntos de luz, enchufes, interruptores, cuadro.</p></li>
-      <li><h3>Haces el presupuesto</h3><p>Con tu tarifa, el IVA calculado y la numeración automática. Puedes calcular el precio desde lo que te cuesta el material y el margen que quieras.</p></li>
-      <li><h3>El cliente lo acepta firmando</h3><p>Le mandas un enlace. Lo abre en su móvil, lo revisa y lo acepta firmando en la pantalla. Te llega un aviso al móvil cuando lo acepta.</p></li>
-      <li><h3>Apuntas el parte de trabajo</h3><p>El técnico anota horas, material y fotos en la misma obra. El parte se queda guardado en la ficha del cliente.</p></li>
+      <li data-img="/img/app/cliente.webp"><h3>Das de alta al cliente</h3><p>Nombre, teléfono, dirección y fotos de la instalación. Le llamas o le escribes por WhatsApp con un toque.</p><figure class="movil en-paso"><img src="/img/app/cliente.webp" width="390" height="844" loading="lazy" alt="Ficha de un cliente con teléfono, WhatsApp, dirección y contrato de mantenimiento"></figure></li>
+      <li data-img="/img/app/plano.webp"><h3>Dibujas el plano</h3><p>Plano eléctrico desde cero o encima de la foto de un plano real, con los símbolos de siempre: puntos de luz, enchufes, interruptores, cuadro.</p><figure class="movil en-paso"><img src="/img/app/plano.webp" width="390" height="844" loading="lazy" alt="Plano eléctrico de una vivienda dibujado en el móvil"></figure></li>
+      <li data-img="/img/app/presupuesto.webp"><h3>Haces el presupuesto</h3><p>Con tu tarifa, el IVA calculado y la numeración automática. Puedes calcular el precio desde lo que te cuesta el material y el margen que quieras.</p><figure class="movil en-paso"><img src="/img/app/presupuesto.webp" width="390" height="844" loading="lazy" alt="Presupuesto con las partidas sacadas del plano y el total con IVA"></figure></li>
+      <li data-img="/img/app/firma.webp"><h3>El cliente lo acepta firmando</h3><p>Le mandas un enlace. Lo abre en su móvil, lo revisa y lo acepta firmando en la pantalla. Te llega un aviso al móvil cuando lo acepta.</p><figure class="movil en-paso"><img src="/img/app/firma.webp" width="390" height="844" loading="lazy" alt="El cliente firma con el dedo en su móvil para aceptar el presupuesto"></figure></li>
+      <li data-img="/img/app/partes.webp"><h3>Apuntas el parte de trabajo</h3><p>El técnico anota horas, material y fotos en la misma obra. El parte se queda guardado en la ficha del cliente.</p><figure class="movil en-paso"><img src="/img/app/partes.webp" width="390" height="844" loading="lazy" alt="Lista de partes de trabajo, pendientes, terminados y firmados"></figure></li>
     </ol>
+  </div>
+</section>
+
+<section class="tresd">
+  <div class="envoltura">
+    <div>
+      <h2>El plano también en 3D</h2>
+      <p>Pulsa «3D» y lo ves como una maqueta: paredes, puertas, ventanas y cada mecanismo a su altura. Enchufes a 30 cm, interruptores a 1,10 m y luces en el techo. Lo giras con el dedo y se lo enseñas al cliente en la misma visita.</p>
+      <p class="nota">Sin cobertura también funciona. 89 símbolos: electricidad, clima y energía, telecomunicaciones, seguridad e incendios.</p>
+    </div>
+    <div class="dos">
+      <figure class="movil"><img src="/img/app/plano.webp" width="390" height="844" loading="lazy" alt="Plano eléctrico en 2D"></figure>
+      <figure class="movil"><img src="/img/app/plano-3d.webp" width="390" height="844" loading="lazy" alt="El mismo plano en 3D"></figure>
+    </div>
   </div>
 </section>
 
@@ -311,6 +293,11 @@ details p{margin:0 0 22px;color:var(--gris);max-width:62ch}
   const cab=document.getElementById("cab");
   const marcar=()=>cab.classList.toggle("con-borde",scrollY>8);
   addEventListener("scroll",marcar,{passive:true});marcar();
+  const img=document.getElementById("pantallaPaso");
+  if(img&&"IntersectionObserver" in window){
+    const io=new IntersectionObserver(es=>{for(const e of es)if(e.isIntersecting){const src=e.target.dataset.img;if(img.getAttribute("src")!==src){img.style.opacity=0;setTimeout(()=>{img.src=src;img.style.opacity=1},160)}}},{rootMargin:"-45% 0px -45% 0px"});
+    document.querySelectorAll(".pasos li[data-img]").forEach(li=>io.observe(li));
+  }
 </script>
 </body>
 </html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://borna-web.vercel.app/sitemap.xml
